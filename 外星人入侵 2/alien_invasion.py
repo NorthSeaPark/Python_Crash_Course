@@ -84,8 +84,13 @@ class AlienInvasion:
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-
+        self.aliens.draw(self.screen)
         pygame.display.flip()
+
+    def _create_fleet(self):
+        # 创建外星人群
+        alien = Alien(self)
+        self.aliens.add(alien)
 
 
 if __name__ == '__main__':
