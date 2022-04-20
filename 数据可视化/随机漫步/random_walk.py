@@ -24,4 +24,12 @@ class RandomWalk:
             y_direction = choice([1, -1])
             y_distance = choice([0, 1, 2, 3, 4])
             y_step = y_direction * y_distance
+
+            # 拒绝原地踏步
+            if x_step == 0 and y_step ==0:
+                continue
+
+            # 计算下一个点的x值和y值
+            x = self.x_values[-1] + x_step
+            y = self.y_values[-1] + y_step
             
