@@ -1,19 +1,30 @@
 from die import Die
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
 
-
-die = Die()
+# 创建两个D6
+die_1 = Die()
+die_2 = Die()
 
 # 掷骰子，并将其结果放在一个列表里
 results = []
 for roll_num in range(1000):
-    result = die.roll()
+    result = die_1.roll() + die_2.roll()
     results.append(result)
 
 
 # 分析结果
 frequencies = []
-for value in range(1, die.num_sides + 1):
+max_result = die_1.num_sides + die_2.num_sides
+for value in range(2, max_result+1):
     frequency = results.count(value)
-    frequencies.append(frequency)\
+    frequencies.append(frequency)
 
-print(frequencies)
+# 对结果进行可视化
+x_values = list(range(2, max_result+1))
+data = [Bar(x=x_values, y=frequencies)]
+
+x_axis_config = {'title': '结果', 'dtick': 1}
+y_axis_config = {'title': '结果的频率'}
+my_layout = Layout(title='两个D6的1000相加的结果', xaxis=x_axis_config, yaxis=y_axis_config)
+offline.plot({'data': data, 'layout': my_layout}, filename='d6_d6.html')
